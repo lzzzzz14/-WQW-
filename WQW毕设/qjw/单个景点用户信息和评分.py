@@ -48,3 +48,5 @@ df = pd.DataFrame(user_profiles)
 
 # 将 DataFrame 写入 Excel 文件
 df.to_excel('user_profiles.xlsx', index=False)
+
+
