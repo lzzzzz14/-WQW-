@@ -56,9 +56,14 @@ for index, url in enumerate(urls, start=1):
 
         # 遍历每个评论项
         for comment_item in comment_items:
-            # 提取用户评分
-            user_rating_tag = comment_item.find('span', class_='cur_star star_0')
-            user_rating = ' '.join(user_rating_tag['class']) if user_rating_tag else 'N/A'
+
+             # 提取用户评分
+            user_rating = 'N/A'  # 默认值为 'N/A'
+            user_rating_div_tag = comment_item.find('div', class_='e_comment_star_box')
+            if user_rating_div_tag:
+                user_rating_span_tags = user_rating_div_tag.find_all('span')
+                if len(user_rating_span_tags) > 1:
+                    user_rating = ' '.join(user_rating_span_tags[1]['class'])
 
             # 提取用户文字评论
             user_comments = comment_item.find_all('p')
@@ -81,6 +86,13 @@ for index, url in enumerate(urls, start=1):
             data['User URL'].append(user_url)
             data['User Name'].append(user_name)
             data['Scenic URL'].append(url)
+
+            #  # 打印提取的信息
+            # print(f"景点名称: {scenic_name}")
+            # print(f"用户评分: {user_rating}")
+            # print(f"用户评论: {user_text_comment}")
+            # print(f"用户URL: {user_url}")
+            # print(f"用户名: {user_name}")
 
         # 适当延迟以避免过快发送请求
         time.sleep(1)

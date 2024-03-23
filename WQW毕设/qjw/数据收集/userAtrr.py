@@ -14,10 +14,11 @@ excel_data = pd.read_excel(excel_path)
 # 这里我们直接使用 excel_data DataFrame，因为我们会在这个DataFrame上添加新的列
 user_urls = excel_data['User URL'].tolist()  # 假设用户URL的列名是 'User URL'
 
-# 设置请求头
+# 创建一个字典来存储你的 headers
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
 }
+
 
 # 用于保存所有用户数据的列表
 all_user_data = []
@@ -51,7 +52,7 @@ for index, user_url in enumerate(user_urls, start=1):
                 user_data['Visited Spots'].append(spot.get_text(strip=True))
         
             # 提取访问该景点的时间
-            #visit_time = soup.find('div', class_='from-detail').get_text(strip=True) if soup.find('div', class_='from-detail') else 'N/A'
+            visit_time = soup.find('div', class_='from-detail').get_text(strip=True) if soup.find('div', class_='from-detail') else 'N/A'
         
             # 添加数据到列表中
             all_user_data.append(user_data)
